@@ -1,5 +1,4 @@
 from agent import run_agent
-from actions import execute_action
 
 
 def main() -> None:
@@ -16,12 +15,7 @@ def main() -> None:
             print("再见！")
             break
 
-        # Step 1：让 AI 决策
-        ai_response = run_agent(user_input)
-
-        # Step 2：执行 AI 的决定
-        result = execute_action(ai_response)
-
+        result = run_agent(user_input)
         print(f"Agent：{result}\n")
 
 

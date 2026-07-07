@@ -114,6 +114,9 @@ https://home.openweathermap.org/
 **Agnes AI 平台**
 https://platform.agnes-ai.com/
 
+**Tavily 搜索接口（每月 1000 次免费次数）**
+https://app.tavily.com/
+
 ---
 
 ## 项目结构
