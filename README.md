@@ -108,6 +108,12 @@ model="deepseek-chat"
 
 在 `.env` 里填入对应平台的 Key 即可，其他代码不用动。
 
+**天气 API 获取**
+https://home.openweathermap.org/
+
+**Agnes AI 平台**
+https://platform.agnes-ai.com/
+
 ---
 
 ## 项目结构

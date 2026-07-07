@@ -1,6 +1,6 @@
-'''
+"""
 最小 Agent 示例
-'''
+"""
 
 import os
 from openai import OpenAI
@@ -11,34 +11,35 @@ load_dotenv()
 
 # 创建 OpenAI 客户端
 client = OpenAI(
-  api_key=os.getenv("OPENAI_API_KEY"),
-  base_url=os.getenv("OPENAI_BASE_URL"),
+    api_key=os.getenv("OPENAI_API_KEY"),
+    base_url=os.getenv("OPENAI_BASE_URL"),
 )
 
 # 初始化历史消息
 history_messages = [
-  {"role": "system", "content": "你是一个AI智能助手，请根据用户的问题给出回答。"}
+    {"role": "system", "content": "你是一个AI智能助手，请根据用户的问题给出回答。"}
 ]
 
 # 循环获取用户输入
 while True:
-  # 获取用户输入
-  msg = input('用户:')
-  history_messages.append({"role": "user", "content": msg})
+    # 获取用户输入
+    msg = input("用户:")
+    history_messages.append({"role": "user", "content": msg})
 
-  # 创建 OpenAI 客户端
-  response = client.chat.completions.create(
-    model='agnes-2.0-flash',
-    messages=history_messages
-  )
+    # 创建 OpenAI 客户端
+    response = client.chat.completions.create(
+        model="agnes-2.0-flash", messages=history_messages
+    )
 
-  # 打印 AI 回复
-  print('AI:', response.choices[0].message.content)
-  # 更新历史消息
-  history_messages.append({"role": "assistant", "content": response.choices[0].message.content})
+    # 打印 AI 回复
+    print("AI:", response.choices[0].message.content)
+    # 更新历史消息
+    history_messages.append(
+        {"role": "assistant", "content": response.choices[0].message.content}
+    )
 
 
-'''
+"""
 运行示例：
 用户:我是小明，喜欢看足球比赛
 AI: 你好，小明！很高兴认识你。⚽️
@@ -58,4 +59,4 @@ AI: 目前并没有“今年”的世界杯。下一届男足世界杯是 **2026
 5.  **德国队/西班牙队**：近期表现稳定，战术素养极高。
 
 但足球的魅力就在于不可预测性！你觉得哪支球队最有希望夺冠呢？⚽️🏆
-'''
+"""
