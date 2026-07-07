@@ -1,28 +1,26 @@
 import os
 from openai import OpenAI
-from dotenv import load_dotenv
+from config import get_model, get_base_url
 
-load_dotenv()
+_client: OpenAI | None = None
 
-client = OpenAI(
-    api_key=os.getenv("OPENAI_API_KEY"),
-    base_url=os.getenv("OPENAI_BASE_URL"),
-)
+
+def _get_client() -> OpenAI:
+    global _client
+    if _client is None:
+        kwargs: dict = {"api_key": os.environ["OPENAI_API_KEY"]}
+        base_url = get_base_url()
+        if base_url:
+            kwargs["base_url"] = base_url
+        _client = OpenAI(**kwargs)
+    return _client
 
 
 def chat(messages: list[dict]) -> str:
-    """
-    发送消息列表给 AI，返回 AI 的回复文字。
-
-    messages 格式：
-    [
-      {"role": "system", "content": "你是一个AI智能助手，请根据用户的问题给出回答。"},
-      {"role": "user",   "content": "你好"},
-    ]
-    """
-    response = client.chat.completions.create(
-        model="agnes-2.0-flash",  # API 改成对应模型名
+    """发送消息列表给 AI，返回回复文字。"""
+    response = _get_client().chat.completions.create(
+        model=get_model(),
         messages=messages,
-        temperature=0,  # 温度，0 = 输出更稳定；1 = 输出更随机
+        temperature=0,
     )
     return response.choices[0].message.content

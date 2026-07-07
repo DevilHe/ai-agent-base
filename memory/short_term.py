@@ -13,8 +13,8 @@ class Message:
 @dataclass
 class ShortTermMemory:
     """
-    保存对话历史，控制上限，防止超过 token 限制。
-    system 消息永远保留，超出上限时删除最旧的非 system 消息。
+    对话短期记忆。
+    保留最近 max_messages 条非 system 消息，防止超过模型 token 限制。
     """
 
     max_messages: int = 20
@@ -45,3 +45,8 @@ class ShortTermMemory:
     def clear_non_system(self) -> None:
         """清除所有非 system 消息（开始新对话时使用）。"""
         self._messages = [m for m in self._messages if m.role == "system"]
+
+    # 非系统消息数量
+    def count(self) -> int:
+        """非系统消息数量。"""
+        return len([m for m in self._messages if m.role != "system"])
